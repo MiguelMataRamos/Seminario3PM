@@ -59,10 +59,11 @@ class Ejercicio1 : AppCompatActivity() {
 
     private fun mostrarNotificacion() {
         var builder = NotificationCompat.Builder(this, channel_id)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle(id.toString())
+            .setSmallIcon(R.drawable.a)
+            .setContentTitle("Mi id es -> "+id.toString())
             .setContentText("Hola mundo")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
+
 
         with(NotificationManagerCompat.from(this)) {
             if (ActivityCompat.checkSelfPermission(
