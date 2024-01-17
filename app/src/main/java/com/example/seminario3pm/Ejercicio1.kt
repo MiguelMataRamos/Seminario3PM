@@ -3,7 +3,9 @@ package com.example.seminario3pm
 import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -58,11 +60,14 @@ class Ejercicio1 : AppCompatActivity() {
     }
 
     private fun mostrarNotificacion() {
+        var principal = Intent(this, MainActivity::class.java)
+        var pendingIntent = PendingIntent.getActivity(this, 0, principal, 0)
+
         var builder = NotificationCompat.Builder(this, channel_id)
             .setSmallIcon(R.drawable.a)
-            .setContentTitle("Mi id es -> "+id.toString())
+            .setContentTitle("Mensaje -> "+id.toString())
             .setContentText("Hola mundo")
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setPriority(NotificationCompat.PRIORITY_HIGH).setContentIntent(pendingIntent)
 
 
         with(NotificationManagerCompat.from(this)) {
