@@ -46,7 +46,7 @@ class Ejercicio1 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ejercicio1)
-        
+
         createNotificationChannel()
 
         var boton = findViewById<Button>(R.id.ejercicio1)
