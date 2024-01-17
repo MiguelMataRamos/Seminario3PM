@@ -63,11 +63,14 @@ class Ejercicio1 : AppCompatActivity() {
         var principal = Intent(this, MainActivity::class.java)
         var pendingIntent = PendingIntent.getActivity(this, 0, principal, 0)
 
+        var actividad = Intent(this, Ejercicio1::class.java)
+        var pendingIntent2 = PendingIntent.getActivity(this, 0, actividad, 0)
+
         var builder = NotificationCompat.Builder(this, channel_id)
             .setSmallIcon(R.drawable.a)
             .setContentTitle("Mensaje -> "+id.toString())
             .setContentText("Hola mundo")
-            .setPriority(NotificationCompat.PRIORITY_HIGH).setContentIntent(pendingIntent)
+            .setPriority(NotificationCompat.PRIORITY_HIGH).setContentIntent(pendingIntent).addAction(R.drawable.a, "Abrir actividad",pendingIntent2)
 
 
         with(NotificationManagerCompat.from(this)) {
