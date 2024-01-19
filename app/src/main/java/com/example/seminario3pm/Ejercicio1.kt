@@ -21,7 +21,7 @@ class Ejercicio1 : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = name
             val descriptionText = descripcion
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val importance = NotificationManager.IMPORTANCE_HIGH
             val channel = NotificationChannel(channel_id, name, importance).apply {
                 description = descriptionText
             }
@@ -33,10 +33,10 @@ class Ejercicio1 : AppCompatActivity() {
     }
 
     companion object {
-        val name = "Notificacion"
-        val descripcion = "Descripcion del canal"
+        const val name = "Notificacion"
+        const val descripcion = "Descripcion del canal"
         const val app_id = "com.example.seminario3pm"
-        val channel_id = "${app_id}_c1"
+        const val channel_id = "${app_id}_c1"
         var id = AtomicInteger(0)
 
         fun createNotificationId(): Int {
@@ -46,6 +46,7 @@ class Ejercicio1 : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ejercicio1)
 
@@ -61,16 +62,21 @@ class Ejercicio1 : AppCompatActivity() {
 
     private fun mostrarNotificacion() {
         var principal = Intent(this, MainActivity::class.java)
-        var pendingIntent = PendingIntent.getActivity(this, 0, principal, 0)
+        var pendingIntent =
+            PendingIntent.getActivity(this, 0, principal, PendingIntent.FLAG_MUTABLE)
 
         var actividad = Intent(this, Ejercicio1::class.java)
-        var pendingIntent2 = PendingIntent.getActivity(this, 0, actividad, 0)
+        var pendingIntent2 =
+            PendingIntent.getActivity(this, 0, actividad, PendingIntent.FLAG_MUTABLE)
 
         var builder = NotificationCompat.Builder(this, channel_id)
             .setSmallIcon(R.drawable.a)
-            .setContentTitle("Mensaje -> "+id.toString())
+            .setContentTitle("Mi ide es -> $id")
             .setContentText("Hola mundo")
-            .setPriority(NotificationCompat.PRIORITY_HIGH).setContentIntent(pendingIntent).addAction(R.drawable.a, "Abrir actividad",pendingIntent2)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(pendingIntent)
+            .addAction(R.drawable.a, "Abrir actividad", pendingIntent2)
+
 
 
         with(NotificationManagerCompat.from(this)) {
