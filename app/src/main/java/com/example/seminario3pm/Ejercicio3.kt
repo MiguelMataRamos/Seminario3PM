@@ -21,6 +21,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.example.seminario3pm.databinding.ActivityEjercicio3Binding
+import java.util.concurrent.atomic.AtomicInteger
 
 class Ejercicio3 : AppCompatActivity() {
     private lateinit var binding: ActivityEjercicio3Binding
@@ -32,10 +33,10 @@ class Ejercicio3 : AppCompatActivity() {
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "Ejercicio3"
+            val name = name
             val descriptionText = texto
             val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel("Ejercicio3", name, importance).apply {
+            val channel = NotificationChannel(channel_id, name, importance).apply {
                 description = descriptionText
             }
             val notificationManager: NotificationManager =
@@ -46,9 +47,8 @@ class Ejercicio3 : AppCompatActivity() {
     }
 
     private fun mostrarNotificacion() {
-        var bitmapicon = icono?.toBitmap()
         var bitmap = foto?.toBitmap()
-        var builder = NotificationCompat.Builder(this, Ejercicio1.channel_id)
+        var builder = NotificationCompat.Builder(this, channel_id)
             .setSmallIcon(icono.hashCode())
             .setContentTitle(titulo)
             .setContentText(texto)
@@ -64,8 +64,21 @@ class Ejercicio3 : AppCompatActivity() {
             ) {
 
             }
-            notify(Ejercicio1.createNotificationId(), builder.build())
+            notify(createNotificationId(), builder.build())
         }
+    }
+
+    companion object {
+        const val name = "Notificacion"
+        const val descripcion = "Descripcion del canal"
+        const val app_id = "com.example.seminario3pm"
+        const val channel_id = "${app_id}_c1"
+        var id = AtomicInteger(0)
+
+        fun createNotificationId(): Int {
+            return id.incrementAndGet()
+        }
+
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityEjercicio3Binding.inflate(layoutInflater)
