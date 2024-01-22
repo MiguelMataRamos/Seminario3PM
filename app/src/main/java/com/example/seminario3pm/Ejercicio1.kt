@@ -31,7 +31,6 @@ class Ejercicio1 : AppCompatActivity() {
 
         }
     }
-
     companion object {
         const val name = "Notificacion"
         const val descripcion = "Descripcion del canal"

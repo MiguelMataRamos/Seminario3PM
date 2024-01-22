@@ -6,4 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".Ejercicio2">
 
+    <Button
+        android:id="@+id/btnNotificacion1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notificación 1 \n BigPictureStyle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnNotificacion2"
+        />
+
+    <Button
+        android:id="@+id/btnNotificacion2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notificación 2 \n BigTextStyle"
+        app:layout_constraintTop_toTopOf="@+id/btnNotificacion1"
+        app:layout_constraintBottom_toBottomOf="@+id/btnNotificacion1"
+        app:layout_constraintStart_toEndOf="@+id/btnNotificacion1"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
