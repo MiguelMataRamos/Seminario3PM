@@ -5,12 +5,14 @@
         <item>Elija una opcion</item>
         <item>Caballo</item>
         <item>Niño</item>
+        <item>Pakirrin</item>
     </string-array>
 
     <string-array name="fotos">
         <item>Elija una opcion</item>
         <item>Pakirrin</item>
-        <item>Nose</item>
+        <item>Jesulin</item>
+        <item>Putin</item>
     </string-array>
 
 </resources>

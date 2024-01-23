@@ -85,6 +85,41 @@
 
 
     <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-1"
+        android:id="@+id/btnMenos"
+        app:layout_constraintTop_toBottomOf="@id/fotos"
+        app:layout_constraintBottom_toTopOf="@id/btnNotificacion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txtContador"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:id="@+id/txtContador"
+        app:layout_constraintEnd_toStartOf="@id/btnMenos"
+        app:layout_constraintStart_toEndOf="@id/btnMas"
+        app:layout_constraintTop_toTopOf="@id/btnMas"
+        app:layout_constraintBottom_toBottomOf="@id/btnMas"
+        android:textSize="30sp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="+1"
+        android:id="@+id/btnMas"
+        app:layout_constraintTop_toTopOf="@id/btnMenos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/txtContador"
+        />
+
+
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Enviar Notificación"

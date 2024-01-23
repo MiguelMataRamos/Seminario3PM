@@ -29,14 +29,16 @@ class Ejercicio3 : AppCompatActivity() {
     var texto: String? = null
     var icono: Drawable? = null
     var foto: Drawable? = null
+    var botones: Int = 0
+    var cont = 0
 
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = name
-            val descriptionText = texto
+            val name = "nombre del canal"
+            val descriptionText = "Texto del canal"
             val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel(channel_id, name, importance).apply {
+            val channel = NotificationChannel("channel_id", name, importance).apply {
                 description = descriptionText
             }
             val notificationManager: NotificationManager =
@@ -48,13 +50,24 @@ class Ejercicio3 : AppCompatActivity() {
 
     private fun mostrarNotificacion() {
         var bitmap = foto?.toBitmap()
-        var builder = NotificationCompat.Builder(this, channel_id)
-            .setSmallIcon(icono.hashCode())
+        var bitmapic = icono?.toBitmap()
+        var builder = NotificationCompat.Builder(this, "channel_id")
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle(titulo)
             .setContentText(texto)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))
+            .setLargeIcon(bitmapic)
 
+        if (botones != 0) {
+            for (i in 1..botones) {
+                builder.addAction(
+                    R.drawable.ic_launcher_foreground,
+                    "Boton $i",
+                    PendingIntent.getActivity(this, 0, Intent(), PendingIntent.FLAG_IMMUTABLE)
+                )
+            }
+        }
 
         with(NotificationManagerCompat.from(this)) {
             if (ActivityCompat.checkSelfPermission(
@@ -64,22 +77,11 @@ class Ejercicio3 : AppCompatActivity() {
             ) {
 
             }
-            notify(createNotificationId(), builder.build())
+            cont++
+            notify(cont, builder.build())
         }
     }
 
-    companion object {
-        const val name = "Notificacion"
-        const val descripcion = "Descripcion del canal"
-        const val app_id = "com.example.seminario3pm"
-        const val channel_id = "${app_id}_c1"
-        var id = AtomicInteger(0)
-
-        fun createNotificationId(): Int {
-            return id.incrementAndGet()
-        }
-
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityEjercicio3Binding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -98,12 +100,14 @@ class Ejercicio3 : AppCompatActivity() {
         }
         binding.iconos.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                when(p2){
+                when (p2) {
                     0 -> icono = null
                     1 -> icono = getDrawable(R.drawable.a)!!
                     2 -> icono = getDrawable(R.drawable.ninio)!!
+                    3 -> icono = getDrawable(R.drawable.paquirr_n)!!
                 }
             }
+
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 icono = null!!
             }
@@ -119,18 +123,34 @@ class Ejercicio3 : AppCompatActivity() {
 
         }
         binding.fotos.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long){
-                when(p2){
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                when (p2) {
                     0 -> foto = null
                     1 -> foto = getDrawable(R.drawable.paquirr_n)
-                    2 -> foto = getDrawable(R.drawable.paquirr_n)
+                    2 -> foto = getDrawable(R.drawable.jesulin)
+                    3 -> foto = getDrawable(R.drawable.putin)
                 }
             }
+
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 foto = null
             }
         }
 
+
+        binding.btnMas.setOnClickListener {
+            if (botones < 3) {
+                botones++
+                binding.txtContador.setText(botones.toString())
+            }
+        }
+
+        binding.btnMenos.setOnClickListener {
+            if (botones > 0) {
+                botones--
+                binding.txtContador.setText(botones.toString())
+            }
+        }
 
 
         binding.btnNotificacion.setOnClickListener {
@@ -138,7 +158,7 @@ class Ejercicio3 : AppCompatActivity() {
                 titulo = binding.txtInputTitulo.text.toString()
                 texto = binding.txtInputTexto.text.toString()
                 mostrarNotificacion()
-
+                Toast.makeText(this, "Notificacion enviada", Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -158,11 +178,11 @@ class Ejercicio3 : AppCompatActivity() {
             binding.txtInputTexto.error = "Ingrese una descripcion"
             texto = false
         }
-        if (icono == null){
+        if (icono == null) {
             ic = false
             Toast.makeText(this, "Debes elegir un icono", Toast.LENGTH_SHORT).show()
         }
-        if (foto == null){
+        if (foto == null) {
             fot = false
             Toast.makeText(this, "Debes elegir una foto", Toast.LENGTH_SHORT).show()
         }
